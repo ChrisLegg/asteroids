@@ -8,18 +8,28 @@ def main():
     gameClock = pygame.time.Clock()
     dt = 0
 
+    updateable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    Player.containers = (updateable, drawable)
+
     ship = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+    
 
     running = True
     while running:
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 return
-            
-        ship.update(dt)
+        for item in updateable:
+            item.update(dt)
+        
         
         screen.fill("black")
-        ship.draw(screen)
+
+        for item in drawable:
+            item.draw(screen)
+        
         pygame.display.flip()
 
 
